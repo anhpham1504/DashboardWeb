@@ -1,0 +1,2 @@
+import type { ApiFailure, ApiSuccess } from "@/types/models";
+export async function apiRequest<T>(url: string, init?: RequestInit): Promise<T> { const response = await fetch(url, { ...init, headers: { "Content-Type": "application/json", ...init?.headers } }); const body = await response.json() as ApiSuccess<T> | ApiFailure; if (!response.ok || !body.success) throw new Error(body.success ? "Không thể hoàn tất yêu cầu." : body.error.message); return body.data; }
