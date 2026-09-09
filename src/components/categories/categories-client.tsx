@@ -111,14 +111,14 @@ export function CategoriesClient() {
       <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-8 sm:px-6 lg:py-10">
         {/* Back Link */}
         <Link
-          href="/"
+          href="/systems"
           className="group mb-7 inline-flex items-center gap-2 rounded-md text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
         >
           <ArrowLeft
             size={15}
             className="transition-transform duration-150 group-hover:-translate-x-1"
           />
-          <span>Quay lại danh sách website</span>
+          <span>Quay lại danh sách hệ thống</span>
         </Link>
 
         {/* Page Title & Action */}

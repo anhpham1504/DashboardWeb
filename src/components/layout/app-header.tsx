@@ -2,17 +2,34 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useRef, useState, useSyncExternalStore } from "react";
-import { Menu, Moon, Plus, Search, Sun, X } from "lucide-react";
+import { useEffect, useState, useSyncExternalStore } from "react";
+import {
+  Compass,
+  FolderCog,
+  LayoutGrid,
+  Menu,
+  Moon,
+  Plus,
+  Search,
+  Sun,
+  Zap,
+} from "lucide-react";
 import { useTheme } from "next-themes";
+import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
 
 export function Brand() {
   return (
     <Link
       href="/"
       className="group flex shrink-0 items-center rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-      aria-label="Bảng điều khiển FPT Polytechnic"
+      aria-label="Cổng Hệ Thống FPT Polytechnic - Về trang chủ"
     >
       <Image
         src="/branding/fpt-polytechnic-logo.png"
@@ -20,13 +37,13 @@ export function Brand() {
         width={240}
         height={82}
         preload
-        className="h-auto w-24 object-contain min-[375px]:w-28 sm:w-[120px]"
+        className="h-auto w-24 object-contain min-[375px]:w-28 sm:w-[124px]"
       />
     </Link>
   );
 }
 
-function ThemeToggle() {
+export function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
   const mounted = useSyncExternalStore(
     () => () => undefined,
@@ -52,7 +69,6 @@ function ThemeToggle() {
 }
 
 export function AppHeader({
-  search,
   onSearchChange,
   onAdd,
   onOpenMobileNav,
@@ -62,9 +78,8 @@ export function AppHeader({
   onAdd?: () => void;
   onOpenMobileNav?: () => void;
 }) {
-  const searchInputRef = useRef<HTMLInputElement>(null);
-  const mobileSearchInputRef = useRef<HTMLInputElement>(null);
-  const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
+  const pathname = usePathname();
+  const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
 
   // Global shortcut: ⌘K or Ctrl+K or / to focus search
   useEffect(() => {
@@ -78,11 +93,12 @@ export function AppHeader({
           document.activeElement?.tagName !== "TEXTAREA")
       ) {
         event.preventDefault();
-        if (window.matchMedia("(max-width: 374px)").matches) {
-          setMobileSearchOpen(true);
-          window.requestAnimationFrame(() => mobileSearchInputRef.current?.focus());
-        } else {
-          searchInputRef.current?.focus();
+        const searchInput = document.querySelector<HTMLInputElement>(
+          "#all-systems input[type='search'], input[type='search']"
+        );
+        if (searchInput) {
+          searchInput.focus();
+          searchInput.scrollIntoView({ behavior: "smooth", block: "center" });
         }
       }
     }
@@ -91,142 +107,177 @@ export function AppHeader({
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [onSearchChange]);
 
-  const isMac =
-    typeof navigator !== "undefined" &&
-    /Mac|iPod|iPhone|iPad/.test(navigator.platform);
+  const navLinks = [
+    { label: "Trang chủ", href: "/", icon: Compass },
+    { label: "Hệ thống", href: "/systems", icon: LayoutGrid },
+    { label: "Danh mục", href: "/categories", icon: FolderCog },
+    { label: "Giới thiệu", href: "/#benefits", icon: Zap },
+  ];
 
   return (
-    <header
-      className={`sticky top-0 z-30 border-b border-border bg-surface/90 backdrop-blur-md ${
-        mobileSearchOpen ? "h-[129px] min-[375px]:h-16" : "h-16"
-      }`}
-    >
-      <div className="mx-auto flex h-16 max-w-[1600px] items-center gap-2 px-3 sm:gap-3 sm:px-6">
-        {/* Mobile Navigation Toggle */}
-        {onOpenMobileNav && (
+    <header className="sticky top-0 z-40 border-b border-border/70 bg-surface/85 backdrop-blur-md">
+      <div className="mx-auto flex h-16 max-w-[1400px] items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
+        {/* Left: Mobile menu trigger + Brand */}
+        <div className="flex items-center gap-3">
           <Button
             variant="ghost"
             size="icon-sm"
-            onClick={onOpenMobileNav}
+            onClick={() => {
+              if (onOpenMobileNav) onOpenMobileNav();
+              else setMobileDrawerOpen(true);
+            }}
             aria-label="Mở menu điều hướng"
             className="lg:hidden shrink-0 text-muted-foreground hover:text-foreground"
           >
-            <Menu size={17} />
+            <Menu size={18} />
           </Button>
-        )}
 
-        <Brand />
+          <Brand />
+        </div>
 
-        {/* Unified Search Bar */}
-        {onSearchChange && (
-          <>
-            <div className="relative mx-auto hidden min-w-0 flex-1 min-[375px]:block sm:max-w-lg">
-              <Search
-                size={14}
-                className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
-              />
-              <input
-                ref={searchInputRef}
-                id="global-search-input"
-                type="search"
-                value={search ?? ""}
-                onChange={(event) => onSearchChange(event.target.value)}
-                placeholder="Tìm website..."
-                aria-label="Tìm kiếm website"
-                className="h-9 w-full appearance-none rounded-lg border border-input bg-muted/45 pl-9 pr-10 text-sm text-foreground placeholder:text-muted-foreground/80 transition-[background-color,border-color,box-shadow] focus:border-primary focus:bg-surface focus:outline-none focus:ring-2 focus:ring-ring/25 sm:pr-16"
-              />
-              {search ? (
-                <button
-                  type="button"
-                  onClick={() => {
-                    onSearchChange("");
-                    searchInputRef.current?.focus();
-                  }}
-                  aria-label="Xóa từ khóa tìm kiếm"
-                  className="absolute right-2 top-1/2 grid size-6 -translate-y-1/2 cursor-pointer place-items-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-                >
-                  <X size={13} />
-                </button>
-              ) : (
-                <kbd className="pointer-events-none absolute right-2.5 top-1/2 hidden -translate-y-1/2 items-center gap-0.5 rounded border border-border bg-surface px-1.5 py-0.5 font-mono text-[10px] font-medium text-muted-foreground shadow-2xs md:inline-flex">
-                  {isMac ? "⌘K" : "Ctrl K"}
-                </kbd>
-              )}
-            </div>
+        {/* Center: Desktop Navigation Bar */}
+        <nav
+          aria-label="Điều hướng chính"
+          className="hidden lg:flex items-center gap-1 xl:gap-2 text-sm font-medium text-muted-foreground"
+        >
+          {navLinks.map((link) => {
+            const active =
+              link.href === "/"
+                ? pathname === "/"
+                : link.href.startsWith("/#")
+                  ? false
+                  : pathname.startsWith(link.href);
 
-            <Button
-              variant="ghost"
-              size="icon-sm"
-              aria-label="Tìm kiếm website"
-              aria-expanded={mobileSearchOpen}
-              aria-controls="mobile-search-panel"
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                aria-current={active ? "page" : undefined}
+                className={`rounded-lg px-3 py-1.5 transition-colors ${
+                  active
+                    ? "bg-primary/10 text-primary-strong"
+                    : "hover:bg-muted/70 hover:text-primary"
+                }`}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
+        </nav>
+
+        {/* Right: Search + Theme Toggle + Actions */}
+        <div className="flex items-center gap-2">
+          {/* Search Trigger (Focuses directory search or opens search) */}
+          {onSearchChange && (
+            <button
+              type="button"
               onClick={() => {
-                setMobileSearchOpen((open) => !open);
-                window.requestAnimationFrame(() =>
-                  mobileSearchInputRef.current?.focus()
-                );
+                const dir = document.getElementById("all-systems");
+                if (dir) {
+                  dir.scrollIntoView({ behavior: "smooth", block: "start" });
+                  setTimeout(() => {
+                    const input = dir.querySelector<HTMLInputElement>(
+                      "input[type='search']"
+                    );
+                    input?.focus();
+                  }, 400);
+                }
               }}
-              className="shrink-0 text-muted-foreground min-[375px]:hidden"
+              className="hidden sm:inline-flex items-center gap-2 rounded-xl border border-border/80 bg-muted/40 px-3 py-1.5 text-xs text-muted-foreground hover:border-primary/40 hover:bg-surface hover:text-foreground transition-all"
+              aria-label="Tìm kiếm hệ thống"
             >
-              <Search size={17} />
-            </Button>
-          </>
-        )}
+              <Search size={14} />
+              <span>Tìm hệ thống...</span>
+              <kbd className="rounded border border-border/70 bg-surface px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground shadow-2xs">
+                ⌘K
+              </kbd>
+            </button>
+          )}
 
-        {/* Right Actions */}
-        <div className="ml-auto flex shrink-0 items-center gap-1.5 sm:gap-2">
           <ThemeToggle />
 
+          {/* "+ Thêm website" button */}
           {onAdd && (
             <Button
-              id="add-website-button"
+              id="header-add-button"
+              variant="outline"
               onClick={onAdd}
               size="sm"
-              aria-label="Thêm website"
-              className="h-9 px-2.5 font-semibold shadow-xs sm:px-3.5"
+              aria-label="Thêm website mới"
+              className="h-9 px-3 font-medium text-xs sm:text-sm border-border/80 hover:border-primary/40 hover:bg-primary/5 hover:text-primary transition-colors"
             >
-              <Plus size={15} className="stroke-[2.5]" />
+              <Plus size={14} className="stroke-[2]" />
               <span className="hidden sm:inline">Thêm website</span>
             </Button>
           )}
         </div>
+      </div>
 
-        {onSearchChange && mobileSearchOpen && (
-          <div
-            id="mobile-search-panel"
-            className="absolute inset-x-0 top-16 border-b border-border bg-surface p-3 shadow-sm min-[375px]:hidden"
-          >
-            <div className="relative">
-              <Search
-                size={15}
-                className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
-              />
-              <input
-                ref={mobileSearchInputRef}
-                type="search"
-                value={search ?? ""}
-                onChange={(event) => onSearchChange(event.target.value)}
-                placeholder="Tìm website..."
-                aria-label="Tìm kiếm website"
-                className="h-10 w-full appearance-none rounded-lg border border-input bg-muted/45 pl-9 pr-10 text-sm text-foreground placeholder:text-muted-foreground transition-[background-color,border-color,box-shadow] focus:border-primary focus:bg-surface focus:outline-none focus:ring-2 focus:ring-ring/25"
-              />
-              {search && (
-                <button
-                  type="button"
+      {/* Mobile Navigation Drawer */}
+      <Sheet open={mobileDrawerOpen} onOpenChange={setMobileDrawerOpen}>
+        <SheetContent side="left" className="w-[300px] sm:w-[350px]">
+          <SheetHeader>
+            <div className="flex items-center justify-between pb-2 border-b border-border/60">
+              <Brand />
+            </div>
+            <SheetTitle className="sr-only">Menu điều hướng</SheetTitle>
+          </SheetHeader>
+
+          <div className="flex flex-col justify-between h-[calc(100%-60px)] pt-6">
+            <div className="space-y-1">
+              <p className="px-3 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground mb-2">
+                Hệ Sinh Thái Số
+              </p>
+              {navLinks.map((link) => {
+                const Icon = link.icon;
+                const active =
+                  link.href === "/"
+                    ? pathname === "/"
+                    : link.href.startsWith("/#")
+                      ? false
+                      : pathname.startsWith(link.href);
+
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    aria-current={active ? "page" : undefined}
+                    onClick={() => setMobileDrawerOpen(false)}
+                    className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors ${
+                      active
+                        ? "bg-primary/10 text-primary-strong"
+                        : "text-foreground hover:bg-muted hover:text-primary"
+                    }`}
+                  >
+                    <Icon size={16} className="text-primary" />
+                    <span>{link.label}</span>
+                  </Link>
+                );
+              })}
+            </div>
+
+            <div className="space-y-3 pt-6 border-t border-border/70">
+              {onAdd && (
+                <Button
                   onClick={() => {
-                    onSearchChange("");
-                    mobileSearchInputRef.current?.focus();
+                    setMobileDrawerOpen(false);
+                    onAdd();
                   }}
-                  aria-label="Xóa từ khóa tìm kiếm"
-                  className="absolute right-2 top-1/2 grid size-7 -translate-y-1/2 cursor-pointer place-items-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                  className="w-full justify-center"
                 >
-                  <X size={14} />
-                </button>
+                  <Plus size={16} className="stroke-[2.5]" />
+                  <span>Thêm website mới</span>
+                </Button>
               )}
+
+              <div className="flex items-center justify-between px-3 text-xs text-muted-foreground">
+                <span>Giao diện</span>
+                <ThemeToggle />
+              </div>
             </div>
           </div>
-        )}
-      </div>
+        </SheetContent>
+      </Sheet>
     </header>
   );
 }

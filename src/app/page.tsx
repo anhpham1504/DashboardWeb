@@ -1,2 +1,2 @@
 import { DashboardClient } from "@/components/websites/dashboard-client";
-export default function Home() { return <DashboardClient/>; }
+export default function Home() { return <DashboardClient mode="marketing"/>; }

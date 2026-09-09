@@ -11,30 +11,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import type { WebsiteDto } from "@/types/models";
-import { getDomain } from "@/lib/url";
+import { getDomain, getSoftwareLogo } from "@/lib/url";
 import { cn } from "@/lib/utils";
 import {
   getCategoryDisplayName,
   getWebsiteDisplayDescription,
 } from "@/lib/localization";
-
-const softwareLogoByHostname: Record<string, string> = {
-  "admin.anhemmotor.online": "/software-icons/anh-em-motor.ico",
-  "myinterview.hzi.io.vn": "/software-icons/my-interview.svg",
-  "v-shield.site": "/software-icons/v-shield.svg",
-  "victionaryenglish.com": "/software-icons/victionary.png",
-  "shbagents.site": "/software-icons/shb-agents.jpg",
-  "drive.google.com": "/software-icons/google-drive.png",
-};
-
-function getSoftwareLogo(url: string) {
-  try {
-    const hostname = new URL(url).hostname.replace(/^www\./, "");
-    return softwareLogoByHostname[hostname] ?? null;
-  } catch {
-    return null;
-  }
-}
 
 export function WebsiteCard({
   website,

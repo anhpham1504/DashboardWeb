@@ -14,9 +14,16 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "FPT Polytechnic | Liên kết nhanh",
+  title: "Cổng Hệ Thống FPT Polytechnic",
   description:
-    "Cổng truy cập nhanh các website thường dùng của FPT Polytechnic.",
+    "Khám phá và truy cập các nền tảng học tập, công việc, công nghệ và công cụ số trong hệ sinh thái FPT Polytechnic.",
+  openGraph: {
+    title: "Cổng Hệ Thống FPT Polytechnic",
+    description:
+      "Khám phá và truy cập các nền tảng học tập, công việc, công nghệ và công cụ số trong hệ sinh thái FPT Polytechnic.",
+    siteName: "FPT Polytechnic Digital Hub",
+    type: "website",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
