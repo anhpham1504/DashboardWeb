@@ -70,9 +70,14 @@ export function getCategoryDisplayDescription(
 }
 
 export function getWebsiteDisplayDescription(
-  description?: string | null
+  description?: string | null,
+  editorialDefault?: string
 ) {
-  if (!description) return "Chưa có mô tả.";
+  if (!description) return editorialDefault ?? "Chưa có mô tả.";
+  // Enrich seed descriptions, but never hide a description edited by the user.
+  if (editorialDefault && (defaultWebsiteDescriptions[description.trim().toLowerCase()] || Object.values(defaultWebsiteDescriptions).includes(description.trim()))) {
+    return editorialDefault;
+  }
   return (
     defaultWebsiteDescriptions[description.trim().toLowerCase()] ?? description
   );

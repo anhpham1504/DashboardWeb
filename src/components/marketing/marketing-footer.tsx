@@ -54,16 +54,16 @@ export function MarketingFooter() {
               Hệ thống
             </Link>
             <Link
-              href="/#ecosystem"
+              href="/#projects"
               className="transition-colors hover:text-foreground hover:text-primary"
             >
-              Hệ sinh thái
+              Sản phẩm
             </Link>
             <Link
-              href="/#benefits"
+              href="/about"
               className="transition-colors hover:text-foreground hover:text-primary"
             >
-              Giới thiệu
+              Về bộ môn
             </Link>
             <Link
               href="/categories"

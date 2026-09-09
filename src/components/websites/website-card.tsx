@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { ArrowUpRight, MoreHorizontal, Pencil, Trash2 } from "lucide-react";
+import { ArrowUpRight, MoreHorizontal, Pencil, Trash2, GraduationCap, LockKeyhole } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -13,6 +13,7 @@ import {
 import type { WebsiteDto } from "@/types/models";
 import { getDomain, getSoftwareLogo } from "@/lib/url";
 import { cn } from "@/lib/utils";
+import { showcaseCatalog } from "@/lib/showcase";
 import {
   getCategoryDisplayName,
   getWebsiteDisplayDescription,
@@ -23,20 +24,24 @@ export function WebsiteCard({
   view,
   onEdit,
   onDelete,
+  directory = false,
 }: {
   website: WebsiteDto;
   view: "grid" | "list";
   onEdit: () => void;
   onDelete: () => void;
+  directory?: boolean;
 }) {
   const [failedFaviconUrl, setFailedFaviconUrl] = useState<string | null>(null);
   const domain = getDomain(website.url);
+  const product = directory ? showcaseCatalog.find((item) => item.hostname === domain) : undefined;
+  const displayName = product && website.name === "Anh Em Motor Admin" ? "Anh Em Motor" : website.name;
   const initial = website.name.trim().charAt(0).toUpperCase() || "L";
   const titleId = `website-${website.id}-title`;
-  const descriptionId = website.description
+  const descriptionId = website.description || product
     ? `website-${website.id}-description`
     : undefined;
-  const displayDescription = getWebsiteDisplayDescription(website.description);
+  const displayDescription = getWebsiteDisplayDescription(website.description, product?.summary);
   const logoUrl = getSoftwareLogo(website.url) ?? website.faviconUrl;
   const showFavicon =
     Boolean(logoUrl) && failedFaviconUrl !== logoUrl;
@@ -130,15 +135,17 @@ export function WebsiteCard({
                 id={titleId}
                 className="truncate text-sm font-semibold text-foreground transition-colors group-hover:text-primary-strong"
               >
-                {website.name}
+                {displayName}
               </h2>
+              {product && <GraduationCap size={14} className="shrink-0 text-primary-strong" aria-label="Sản phẩm sinh viên" />}
+              {product?.loginRequired && <LockKeyhole size={12} className="shrink-0 text-muted-foreground" aria-label="Cần tài khoản" />}
               {website.category?.name && (
                 <span className="hidden rounded-md border border-primary/15 bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary-strong sm:inline-flex">
                   {getCategoryDisplayName(website.category.name)}
                 </span>
               )}
             </div>
-            {website.description ? (
+            {website.description || product ? (
               <p
                 id={descriptionId}
                 className="mt-0.5 truncate text-sm text-muted-foreground"
@@ -184,6 +191,7 @@ export function WebsiteCard({
         {/* Card Header */}
         <div className="flex items-start justify-between gap-3">
           {FaviconElement}
+          {directory && <span className="mr-auto mt-1 inline-flex items-center gap-1.5 rounded-md bg-muted px-2 py-1 text-[10px] font-medium text-muted-foreground">{product && <GraduationCap size={12} />}{product ? "Sản phẩm sinh viên" : "Công cụ bên ngoài"}</span>}
           {MoreMenuElement}
         </div>
 
@@ -193,11 +201,11 @@ export function WebsiteCard({
             id={titleId}
             className="line-clamp-2 text-base font-semibold leading-6 tracking-tight text-foreground transition-colors group-hover:text-primary-strong"
           >
-            {website.name}
+            {displayName}
           </h2>
           <p
             id={descriptionId}
-            className="mt-1.5 line-clamp-2 min-h-10 text-sm leading-5 text-muted-foreground"
+            className={cn("mt-1.5 min-h-10 text-sm leading-6 text-muted-foreground", directory ? "line-clamp-3" : "line-clamp-2")}
           >
             {displayDescription}
           </p>
@@ -207,10 +215,11 @@ export function WebsiteCard({
       {/* Card Footer */}
       <div className="mt-4">
         {/* Category Pill */}
-        <div className="mb-3">
+        <div className="mb-3 flex flex-wrap items-center gap-2">
           <span className="inline-flex min-h-6 items-center rounded-md border border-primary/15 bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary-strong">
             {getCategoryDisplayName(website.category?.name)}
           </span>
+          {product?.loginRequired && <span className="inline-flex items-center gap-1 text-[10px] text-muted-foreground"><LockKeyhole size={11} />Cần tài khoản</span>}
         </div>
 
         {/* Domain Divider & External Link */}
@@ -219,6 +228,7 @@ export function WebsiteCard({
             {domain}
           </span>
           <span className="flex items-center text-muted-foreground transition-colors group-hover:text-primary-strong">
+            {directory && <span className="mr-1 text-primary-strong">Truy cập</span>}
             <ArrowUpRight size={14} />
           </span>
         </div>

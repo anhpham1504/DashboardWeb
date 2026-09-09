@@ -111,7 +111,7 @@ export function AppHeader({
     { label: "Trang chủ", href: "/", icon: Compass },
     { label: "Hệ thống", href: "/systems", icon: LayoutGrid },
     { label: "Danh mục", href: "/categories", icon: FolderCog },
-    { label: "Giới thiệu", href: "/#benefits", icon: Zap },
+    { label: "Về bộ môn", href: "/about", icon: Zap },
   ];
 
   return (

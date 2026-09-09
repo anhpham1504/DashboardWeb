@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { LoaderCircle, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { AppHeader } from "@/components/layout/app-header";
@@ -31,6 +31,7 @@ import { useDebounce } from "@/hooks/use-debounce";
 import { apiRequest } from "@/lib/client-api";
 import { getUserError } from "@/lib/localization";
 import type { CategoryDto, WebsiteDto } from "@/types/models";
+import directoryStyles from "@/components/marketing/directory.module.css";
 
 export function DashboardClient({
   mode = "marketing",
@@ -58,8 +59,11 @@ export function DashboardClient({
   const [deletingBusy, setDeletingBusy] = useState(false);
   const formReturnFocusRef = useRef<HTMLElement | null>(null);
   const deleteReturnFocusRef = useRef<HTMLElement | null>(null);
+  const loadSequence = useRef(0);
+  const invalidateLoad = useCallback(() => { loadSequence.current++; }, []);
 
   const load = useCallback(async () => {
+    const sequence = ++loadSequence.current;
     setLoading(true);
     setError("");
     try {
@@ -67,27 +71,30 @@ export function DashboardClient({
       if (debouncedSearch) params.set("search", debouncedSearch);
       if (category !== "all") params.set("categoryId", category);
       params.set("sort", sort);
-      const [websiteData, categoryData] = await Promise.all([
+      const [websiteData, categoryData, fullCollection] = await Promise.all([
         apiRequest<WebsiteDto[]>(`/api/websites?${params}`),
         apiRequest<CategoryDto[]>("/api/categories"),
+        category !== "all" || debouncedSearch
+          ? apiRequest<WebsiteDto[]>("/api/websites")
+          : Promise.resolve(null),
       ]);
+      if (sequence !== loadSequence.current) return;
       setWebsites(websiteData);
       setCategories(categoryData);
-      if (category === "all" && !debouncedSearch) {
-        setCollectionTotal(websiteData.length);
-        setFeaturedWebsites(websiteData);
-      }
+      setCollectionTotal((fullCollection ?? websiteData).length);
+      setFeaturedWebsites(fullCollection ?? websiteData);
     } catch (reason) {
+      if (sequence !== loadSequence.current) return;
       setError(getUserError(reason, "Không thể tải danh sách website."));
     } finally {
-      setLoading(false);
+      if (sequence === loadSequence.current) setLoading(false);
     }
   }, [debouncedSearch, category, sort]);
 
   useEffect(() => {
     const timer = window.setTimeout(() => void load(), 0);
-    return () => window.clearTimeout(timer);
-  }, [load]);
+    return () => { window.clearTimeout(timer); invalidateLoad(); };
+  }, [load, invalidateLoad]);
 
   useEffect(() => {
     const refresh = () => void load();
@@ -95,13 +102,7 @@ export function DashboardClient({
     return () => window.removeEventListener("linkhub:refresh", refresh);
   }, [load]);
 
-  const total = useMemo(() => {
-    const categorizedTotal = categories.reduce(
-      (sum, item) => sum + item.websiteCount,
-      0
-    );
-    return Math.max(collectionTotal, categorizedTotal);
-  }, [categories, collectionTotal]);
+  const total = collectionTotal;
 
   async function save(value: WebsiteFormValue) {
     const method = editing ? "PUT" : "POST";
@@ -153,7 +154,7 @@ export function DashboardClient({
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground flex flex-col selection:bg-primary/20">
+    <div className={`${mode === "directory" ? directoryStyles.theme : ""} min-h-screen bg-background text-foreground flex flex-col selection:bg-primary/20`}>
       {/* 01. Header */}
       <AppHeader
         search={mode === "directory" ? search : undefined}
@@ -183,6 +184,7 @@ export function DashboardClient({
         ) : (
           <SystemsDirectory
             websites={websites}
+            allWebsites={featuredWebsites}
             categories={categories}
             total={total}
             search={search}

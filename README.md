@@ -86,6 +86,34 @@ npm start
 
 SQLite is intended for a single local dashboard instance. Keep `.env` and database files out of version control.
 
-## Screenshots
+## FPT Digital Showcase
 
-Add dashboard screenshots here after customizing the seed data.
+`/` is the public student-product exhibition. `/systems` retains the full
+directory, search, filters, sorting and website management. `/categories`
+retains category management.
+`/about` is the dedicated department introduction page, separated from the
+product homepage. Navigation and footer links point to it; legacy `/#about`
+links are forwarded to `/about` in the browser.
+
+The system directory includes live collection counts, student/external-tool
+filters, accessible grid/list views, account-access notes and usage guidance.
+Collection statistics remain independent of search and category filters.
+Default student-product descriptions are enriched from the editorial catalog;
+custom descriptions saved by users take precedence. Its warm light/dark palette
+is scoped to the directory and does not modify category pages.
+
+The homepage selects the five verified student applications in
+`src/lib/showcase.ts`: Anh Em Motor, My Interview, V-Shield, Victionary English
+and SHB Agents. Other tools stay in the directory. Names and destinations are
+read from the database on each homepage request; an app removed from the
+database also disappears from the exhibition. Editorial descriptions, order,
+category labels and cover filenames are maintained in the showcase catalog.
+
+Square 3D promotional posters are stored in `public/showcase/`;
+their format, generation prompts and replacement guidelines are documented there.
+Covers are explicitly labeled as illustrations, not actual screenshots.
+Login-only products are labeled.
+No student identities, awards or usage figures are fabricated.
+
+Presentation components and responsive light/dark styles are isolated in
+`src/components/showcase/`. The homepage is server-rendered for discoverability.
