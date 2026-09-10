@@ -82,7 +82,7 @@ export function EcosystemBento({ categories }: { categories: CategoryDto[] }) {
           </div>
           <h2
             id="ecosystem-title"
-            className="text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl lg:text-[2.6rem]"
+            className="font-display text-3xl font-extrabold leading-[1.15] tracking-[-0.025em] text-foreground [text-wrap:balance] sm:text-4xl lg:text-[2.6rem]"
           >
             Mọi công cụ, đúng nơi bạn cần
           </h2>

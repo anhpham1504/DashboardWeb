@@ -3,7 +3,7 @@
 .page { max-width: 1440px; margin: auto; padding: 48px 64px 52px; }
 .intro { max-width: 720px; margin-bottom: 24px; }
 .eyebrow { font-size: 10px; font-weight: 600; letter-spacing: .12em; color: var(--primary-strong); text-transform: uppercase; margin-bottom: 8px; }
-.intro h1 { font-size: clamp(32px, 3vw, 42px); letter-spacing: -.045em; font-weight: 600; line-height: 1.15; }
+.intro h1 { font-family: var(--font-manrope), sans-serif; font-size: clamp(32px, 3vw, 42px); letter-spacing: -.035em; font-weight: 800; line-height: 1.05; text-wrap: balance; }
 .description { color: var(--muted-foreground); font-size: 13px; line-height: 1.7; margin-top: 9px; }
 .toolbar { border: 1px solid var(--border); background: var(--surface); border-radius: 7px; padding: 12px; margin-bottom: 14px; }
 .toolbarTop { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; }
@@ -29,7 +29,7 @@
 .list { display: grid; gap: 10px; }
 .empty { text-align: center; padding: 50px 20px; border: 1px dashed var(--border); border-radius: 7px; background: var(--surface); }
 .empty svg { margin: 0 auto 15px; color: var(--muted-foreground); }
-.empty h2 { font-size: 20px; font-weight: 600; }
+.empty h2 { font-family: var(--font-manrope), sans-serif; font-size: 20px; font-weight: 800; line-height: 1.15; letter-spacing: -.025em; }
 .empty p { font-size: 13px; color: var(--muted-foreground); margin: 10px 0 20px; }
 .help { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; border-top: 1px solid var(--border); margin-top: 36px; padding-top: 28px; }
 .helpItem { display: flex; align-items: flex-start; gap: 12px; }
@@ -37,7 +37,7 @@
 .help h2 { font-size: 13px; font-weight: 600; margin-bottom: 7px; }
 .help p { font-size: 12px; line-height: 1.8; color: var(--muted-foreground); }
 .about { display: flex; align-items: center; justify-content: space-between; gap: 28px; padding: 23px 26px; border: 1px solid var(--border); border-left: 3px solid var(--primary); background: var(--surface); border-radius: 7px; margin-top: 28px; }
-.about h2 { font-size: 18px; font-weight: 600; letter-spacing: -.025em; }
+.about h2 { font-family: var(--font-manrope), sans-serif; font-size: 18px; font-weight: 800; line-height: 1.15; letter-spacing: -.025em; }
 .about p { font-size: 12px; color: var(--muted-foreground); max-width: 770px; line-height: 1.8; margin-top: 7px; }
 .about a { flex-shrink: 0; display: inline-flex; gap: 10px; align-items: center; font-size: 12px; color: var(--primary-strong); }
 

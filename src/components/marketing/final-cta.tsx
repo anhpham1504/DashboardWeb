@@ -35,7 +35,7 @@ export function FinalCta() {
 
             <h2
               id="final-cta-title"
-              className="text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl text-white"
+              className="font-display text-3xl font-extrabold leading-[1.15] tracking-[-0.025em] text-white [text-wrap:balance] sm:text-4xl lg:text-5xl"
             >
               Sẵn sàng khám phá?
             </h2>

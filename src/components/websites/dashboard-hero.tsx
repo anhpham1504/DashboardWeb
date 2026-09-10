@@ -31,7 +31,7 @@ export function DashboardHero({ onAdd }: { onAdd: () => void }) {
           </p>
           <h1
             id="dashboard-hero-title"
-            className="max-w-xl text-2xl font-bold tracking-[-0.03em] text-foreground sm:text-[1.75rem] sm:leading-tight lg:text-3xl"
+            className="font-display max-w-xl text-2xl font-extrabold leading-[1.05] tracking-[-0.035em] text-foreground [text-wrap:balance] sm:text-[1.75rem] lg:text-3xl"
           >
             Cổng Liên Kết FPT Polytechnic
           </h1>

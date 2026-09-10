@@ -37,6 +37,11 @@ src/types/              Shared application types
 
 Requirements: Node.js 20+ and npm.
 
+On Windows, double-click `run.bat`. It installs dependencies when needed,
+prepares Prisma and starts the website at `http://localhost:3000`.
+
+Manual setup:
+
 ```bash
 npm install
 ```
@@ -100,7 +105,10 @@ npm run build
 npm start
 ```
 
-SQLite is intended for a single local dashboard instance. Keep `.env` and database files out of version control.
+SQLite is intended for a single local dashboard instance. This repository
+intentionally includes the local `.env` configuration and starter database so
+the current showcase can run immediately on another computer. Do not add
+passwords, tokens, or production credentials to the committed `.env` file.
 
 ## FPT Digital Showcase
 

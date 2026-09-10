@@ -46,7 +46,7 @@ export function HeroSection({
             </div>
 
             {/* Main Headline */}
-            <h1 className="text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl sm:leading-[1.12] lg:text-[3.4rem] xl:text-[3.75rem]">
+            <h1 className="font-display text-4xl font-extrabold leading-[1.05] tracking-[-0.035em] text-foreground [text-wrap:balance] sm:text-5xl lg:text-[3.4rem] xl:text-[3.75rem]">
               Một điểm truy cập.
               <span className="block text-primary mt-1">
                 Mọi công cụ bạn cần.

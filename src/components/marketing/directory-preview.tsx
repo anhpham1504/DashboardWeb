@@ -19,7 +19,7 @@ export function DirectoryPreview({
               <LayoutGrid size={20} />
             </span>
             <div>
-              <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+              <h2 className="font-display text-2xl font-extrabold leading-[1.15] tracking-[-0.025em] text-foreground [text-wrap:balance] sm:text-3xl">
                 Khám phá toàn bộ hệ thống
               </h2>
               <p className="mt-2 text-sm leading-6 text-muted-foreground sm:text-base">

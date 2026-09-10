@@ -35,7 +35,7 @@ export function MarketingFooter() {
                 />
               </Link>
               <p className="mt-6 text-xs font-bold uppercase leading-5 tracking-[0.1em] text-[#dfec7b]">Bộ môn Công nghệ thông tin · Cơ sở Đồng Nai</p>
-              <h2 className="mt-4 text-[clamp(25px,2.2vw,34px)] font-semibold leading-[1.22] tracking-[-0.045em]">Ý tưởng của sinh viên.<br /><span className="text-[#e4c8ff]">Trải nghiệm dành cho bạn.</span></h2>
+              <h2 className="font-display mt-4 text-[clamp(25px,2.2vw,34px)] font-extrabold leading-[1.15] tracking-[-0.025em] [text-wrap:balance]">Ý tưởng của sinh viên.<br /><span className="text-[#e4c8ff]">Trải nghiệm dành cho bạn.</span></h2>
               <p className="mt-4 max-w-[490px] text-sm leading-6 text-[#d9d0e3]">Nơi kiến thức trên lớp được phát triển thành sản phẩm số có thể trải nghiệm và tiếp tục hoàn thiện.</p>
             </div>
 
