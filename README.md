@@ -47,7 +47,11 @@ Copy `.env.example` to `.env`:
 
 ```env
 DATABASE_URL="file:./dev.db"
+NEXT_PUBLIC_SITE_URL="http://localhost:3000"
 ```
+
+Set `NEXT_PUBLIC_SITE_URL` to the public origin in production so metadata,
+the sitemap, robots file, and social-sharing images use canonical URLs.
 
 ## Prisma migration
 
@@ -61,7 +65,9 @@ npx prisma migrate dev
 npx prisma db seed
 ```
 
-The seed adds Development, AI Tools, Work, Study, and Entertainment categories plus four sample websites.
+The seed adds Development, AI Tools, Work, and Study categories plus the
+curated showcase websites. Empty legacy categories are removed safely; the
+Victionary English product is assigned to Study.
 
 ## Development
 
@@ -76,6 +82,16 @@ Open [http://localhost:3000](http://localhost:3000).
 ```bash
 npm run build
 ```
+
+## Automated browser checks
+
+```bash
+npm run test:e2e
+```
+
+The Playwright suite covers the four public pages in light and dark mode at
+desktop and mobile sizes. It also checks horizontal overflow, the About quick
+navigation, mobile navigation, and the generated SEO endpoints.
 
 ## Production
 
@@ -94,6 +110,9 @@ retains category management.
 `/about` is the dedicated department introduction page, separated from the
 product homepage. Navigation and footer links point to it; legacy `/#about`
 links are forwarded to `/about` in the browser.
+
+Search and sharing metadata are generated through `/sitemap.xml`, `/robots.txt`,
+`/opengraph-image.png`, and `/twitter-image.png`.
 
 The system directory includes live collection counts, student/external-tool
 filters, accessible grid/list views, account-access notes and usage guidance.

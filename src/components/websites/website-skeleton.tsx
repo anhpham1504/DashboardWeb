@@ -1,9 +1,9 @@
 export function WebsiteSkeleton({ view = "grid" }: { view?: "grid" | "list" }) {
   if (view === "list") {
     return (
-      <div className="flex min-h-20 animate-pulse items-center justify-between gap-3.5 rounded-xl border border-border/80 bg-surface px-4 py-3.5">
+      <div className="flex min-h-20 animate-pulse items-center justify-between gap-3.5 rounded-[7px] border border-border bg-surface px-4 py-3.5">
         <div className="flex min-w-0 flex-1 items-center gap-3.5">
-          <div className="size-10 shrink-0 rounded-xl bg-muted" />
+          <div className="size-10 shrink-0 rounded-[7px] bg-muted" />
           <div className="min-w-0 flex-1 space-y-1.5">
             <div className="h-4 w-1/4 rounded bg-muted" />
             <div className="h-3 w-1/2 rounded bg-muted" />
@@ -19,11 +19,11 @@ export function WebsiteSkeleton({ view = "grid" }: { view?: "grid" | "list" }) {
   }
 
   return (
-    <div className="flex min-h-[230px] animate-pulse flex-col justify-between rounded-xl border border-border/80 bg-surface p-5">
+    <div className="flex min-h-[230px] animate-pulse flex-col justify-between rounded-[7px] border border-border bg-surface p-5">
       <div>
         <div className="flex items-start justify-between">
-          <div className="size-12 rounded-xl bg-muted" />
-          <div className="size-8 rounded-lg bg-muted" />
+          <div className="size-12 rounded-[7px] bg-muted" />
+          <div className="size-8 rounded-[5px] bg-muted" />
         </div>
         <div className="mt-4 space-y-2">
           <div className="h-5 w-3/5 rounded bg-muted" />

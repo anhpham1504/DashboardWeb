@@ -8,7 +8,7 @@ export function Input({
   return (
     <input
       className={cn(
-        "h-10 w-full rounded-lg border border-input bg-surface px-3 text-sm text-foreground transition-colors placeholder:text-muted-foreground/70 focus-visible:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/25 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-danger aria-invalid:ring-danger/20",
+        "h-10 w-full rounded-[7px] border border-input bg-surface px-3 text-sm text-foreground transition-colors placeholder:text-muted-foreground/70 focus-visible:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/20 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-danger aria-invalid:ring-danger/20",
         className
       )}
       {...props}
@@ -23,7 +23,7 @@ export function Textarea({
   return (
     <textarea
       className={cn(
-        "min-h-24 w-full resize-y rounded-lg border border-input bg-surface p-3 text-sm leading-6 text-foreground transition-colors placeholder:text-muted-foreground/70 focus-visible:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/25 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-danger aria-invalid:ring-danger/20",
+        "min-h-24 w-full resize-y rounded-[7px] border border-input bg-surface p-3 text-sm leading-6 text-foreground transition-colors placeholder:text-muted-foreground/70 focus-visible:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/20 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-danger aria-invalid:ring-danger/20",
         className
       )}
       {...props}

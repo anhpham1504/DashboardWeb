@@ -16,7 +16,7 @@ export function SelectTrigger({
   return (
     <SelectPrimitive.Trigger
       className={cn(
-        "flex h-10 min-w-36 items-center justify-between gap-2 rounded-lg border border-input bg-surface px-3 text-sm text-foreground transition-colors placeholder:text-muted-foreground/70 hover:bg-muted/50 focus-visible:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/25 disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer",
+        "flex h-10 min-w-36 items-center justify-between gap-2 rounded-[7px] border border-input bg-surface px-3 text-sm text-foreground transition-colors placeholder:text-muted-foreground/70 hover:border-foreground/20 hover:bg-muted/50 focus-visible:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/20 disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer",
         className
       )}
       {...props}
@@ -40,7 +40,7 @@ export function SelectContent({
         position="popper"
         sideOffset={5}
         className={cn(
-          "z-[60] max-h-64 min-w-[var(--radix-select-trigger-width)] overflow-hidden rounded-xl border border-border bg-popover p-1 text-popover-foreground shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
+          "z-[60] max-h-64 min-w-[var(--radix-select-trigger-width)] overflow-hidden rounded-[7px] border border-border bg-popover p-1 text-popover-foreground shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
           className
         )}
         {...props}

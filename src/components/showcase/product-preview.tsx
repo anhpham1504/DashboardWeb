@@ -6,7 +6,7 @@ import { AppWindow } from "lucide-react";
 import styles from "./showcase.module.css";
 
 export function ProductPreview({ src, name, priority = false }: {
-  src: string; name: string; domain: string; priority?: boolean;
+  src: string; name: string; priority?: boolean;
 }) {
   const [failed, setFailed] = useState(false);
   return (

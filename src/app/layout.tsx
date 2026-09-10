@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/providers";
+import { siteUrl } from "@/lib/site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,6 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: siteUrl,
   title: "Cổng Hệ Thống FPT Polytechnic",
   description:
     "Khám phá và truy cập các nền tảng học tập, công việc, công nghệ và công cụ số trong hệ sinh thái FPT Polytechnic.",
@@ -23,6 +25,11 @@ export const metadata: Metadata = {
       "Khám phá và truy cập các nền tảng học tập, công việc, công nghệ và công cụ số trong hệ sinh thái FPT Polytechnic.",
     siteName: "FPT Polytechnic Digital Hub",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "FPT Digital Showcase",
+    description: "Từ ý tưởng sinh viên đến sản phẩm thực tế tại FPT Polytechnic Đồng Nai.",
   },
 };
 

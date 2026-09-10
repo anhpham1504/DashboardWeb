@@ -17,7 +17,7 @@ export function SheetOverlay({
   return (
     <DialogPrimitive.Overlay
       className={cn(
-        "fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-xs data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+        "fixed inset-0 z-50 bg-black/50 backdrop-blur-xs data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
         className
       )}
       {...props}
@@ -50,7 +50,7 @@ export function SheetContent({
         {children}
         <DialogPrimitive.Close
           aria-label="Đóng menu điều hướng"
-          className="absolute right-3.5 top-3.5 grid size-8 place-items-center rounded-lg text-muted-foreground transition hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="absolute right-3.5 top-3.5 grid size-8 place-items-center rounded-full border border-transparent text-muted-foreground transition hover:border-border hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           <X size={17} />
         </DialogPrimitive.Close>

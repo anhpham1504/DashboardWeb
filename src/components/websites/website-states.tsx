@@ -8,10 +8,10 @@ export function WebsiteLoadError({ onRetry }: { onRetry: () => void }) {
   return (
     <div
       role="alert"
-      className="grid min-h-72 place-items-center rounded-xl border border-dashed border-border bg-surface p-8 text-center"
+      className="grid min-h-72 place-items-center rounded-[7px] border border-dashed border-border bg-surface p-8 text-center"
     >
       <div className="max-w-md">
-        <div className="mx-auto mb-3 grid size-10 place-items-center rounded-xl bg-danger/10 text-danger">
+        <div className="mx-auto mb-3 grid size-10 place-items-center rounded-[7px] bg-danger/10 text-danger">
           <RefreshCcw size={18} />
         </div>
         <h2 className="text-base font-semibold text-foreground">
@@ -50,7 +50,7 @@ export function WebsiteEmptyState({
   onAdd: () => void;
 }) {
   return (
-    <div className="grid min-h-72 place-items-center rounded-xl border border-dashed border-border bg-surface/50 p-8 text-center">
+    <div className="grid min-h-72 place-items-center rounded-[7px] border border-dashed border-border bg-surface/50 p-8 text-center">
       <div className="max-w-md">
         {search ? (
           <>
@@ -128,7 +128,7 @@ function EmptyIcon({
 }) {
   return (
     <div
-      className={`mx-auto mb-3 grid size-11 place-items-center rounded-xl ${
+      className={`mx-auto mb-3 grid size-11 place-items-center rounded-[7px] ${
         muted
           ? "bg-muted text-muted-foreground"
           : "bg-primary/10 text-primary"

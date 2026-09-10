@@ -125,7 +125,7 @@ export function DashboardClient({
       setCollectionTotal((current) => Math.max(0, current - 1));
       setDeleting(null);
       await load();
-      document.getElementById("add-website-button")?.focus();
+      document.getElementById("header-add-button")?.focus();
     } catch (reason) {
       toast.error(getUserError(reason, "Không thể xóa website."));
     } finally {

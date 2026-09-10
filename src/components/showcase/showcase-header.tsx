@@ -32,7 +32,6 @@ export function ShowcaseHeader() {
       <div className={styles.headerInner}>
         <div className={styles.identity}>
           <Brand />
-          <span className={styles.identityLabel}>BỘ MÔN<br /><strong>CÔNG NGHỆ THÔNG TIN</strong></span>
         </div>
         <nav className={styles.desktopNav} aria-label="Điều hướng chính">
           {links.map(link => <Link key={link.href} href={link.href} aria-current={pathname === link.href ? "page" : undefined}>{link.label}</Link>)}

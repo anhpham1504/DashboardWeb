@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, ChevronRight, FolderCog, Grid2X2, List, Plus, Search, X, GraduationCap, MousePointer2, LockKeyhole, SlidersHorizontal } from "lucide-react";
+import { ArrowRight, FolderCog, Grid2X2, List, Search, X, SlidersHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { WebsiteCard } from "@/components/websites/website-card";
@@ -60,28 +60,9 @@ export function SystemsDirectory({
 
   return (
     <section id="all-systems" aria-labelledby="directory-title" className={styles.page}>
-      <nav aria-label="Đường dẫn trang" className={styles.breadcrumb}>
-        <Link href="/">Trang chủ</Link><ChevronRight size={12} /><span aria-current="page">Tất cả hệ thống</span>
-      </nav>
       <div className={styles.intro}>
-        <div>
-          <p className={styles.eyebrow}>FPT Polytechnic / Không gian kết nối số</p>
-          <h1 id="directory-title">Tất cả hệ thống<span className="text-primary">.</span></h1>
-          <p className={styles.description}>Một nơi để khám phá sản phẩm sinh viên và truy cập các công cụ học tập, lập trình, làm việc. Tìm đúng ứng dụng, bắt đầu chỉ với một lần nhấp.</p>
-          <div className={styles.actions}>
-            <Button id="add-website-button" onClick={onAdd} size="sm"><Plus size={16} />Thêm website</Button>
-            <Button asChild variant="outline" size="sm"><Link href="/categories"><FolderCog size={15} />Quản lý danh mục</Link></Button>
-          </div>
-        </div>
-        <aside className={styles.overview} aria-label="Tổng quan thư viện">
-          <p>THƯ VIỆN CỦA BỘ MÔN CNTT</p>
-          <dl className={styles.stats}>
-            <div><dd>{count(total)}</dd><dt>Website</dt></div>
-            <div><dd>{count(studentCount)}</dd><dt>Sản phẩm SV</dt></div>
-            <div><dd>{count(categories.length)}</dd><dt>Danh mục</dt></div>
-          </dl>
-          <Link href="/#projects"><span>Xem bộ sưu tập sản phẩm sinh viên</span><ArrowUpRight size={16} /></Link>
-        </aside>
+        <h1 id="directory-title">Tất cả hệ thống<span className="text-primary">.</span></h1>
+        <p className={styles.description}>Sản phẩm sinh viên và các công cụ phục vụ học tập, lập trình, làm việc.</p>
       </div>
 
       <div className={styles.toolbar}>
@@ -93,8 +74,15 @@ export function SystemsDirectory({
             {search && <button type="button" aria-label="Xóa từ khóa tìm kiếm" onClick={() => { onSearchChange(""); searchInputRef.current?.focus(); }}><X size={16} /></button>}
           </div>
           <div className={styles.controls}>
+            <Select value={category} onValueChange={onCategoryChange}>
+              <SelectTrigger aria-label="Lọc theo danh mục" className={styles.selectTrigger}><FolderCog size={14} /><span className={styles.selectValue}>{activeCategory ? getCategoryDisplayName(activeCategory.name) : "Danh mục"}</span></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">Tất cả danh mục</SelectItem>
+                {categories.map((item) => <SelectItem key={item.id} value={item.id}>{getCategoryDisplayName(item.name)} ({formatNumber(item.websiteCount)})</SelectItem>)}
+              </SelectContent>
+            </Select>
             <Select value={sort} onValueChange={onSortChange}>
-              <SelectTrigger aria-label="Sắp xếp danh sách hệ thống" className="h-11 min-w-36 text-xs"><SlidersHorizontal size={14} /><SelectValue /></SelectTrigger>
+              <SelectTrigger aria-label="Sắp xếp danh sách hệ thống" className={styles.selectTrigger}><SlidersHorizontal size={14} /><SelectValue /></SelectTrigger>
               <SelectContent>
                 <SelectItem value="newest">Mới nhất</SelectItem><SelectItem value="oldest">Cũ nhất</SelectItem>
                 <SelectItem value="name-asc">Tên A–Z</SelectItem><SelectItem value="name-desc">Tên Z–A</SelectItem>
@@ -105,13 +93,6 @@ export function SystemsDirectory({
               <button type="button" title="Dạng danh sách" aria-label="Dạng danh sách" aria-pressed={view === "list"} onClick={() => onViewChange("list")}><List size={18} /></button>
             </div>
           </div>
-        </div>
-        <div className={styles.filters} role="group" aria-label="Lọc theo danh mục">
-          <span>Danh mục</span>
-          <button type="button" className={styles.chip} aria-pressed={category === "all"} onClick={() => onCategoryChange("all")}>Tất cả<span>{count(total)}</span></button>
-          {categories.map((item) => <button key={item.id} type="button" className={styles.chip} aria-pressed={category === item.id} onClick={() => onCategoryChange(item.id)}>
-            {getCategoryDisplayName(item.name)}<span>{formatNumber(item.websiteCount)}</span>
-          </button>)}
         </div>
       </div>
 
@@ -139,13 +120,8 @@ export function SystemsDirectory({
           {visibleWebsites.map((website) => <WebsiteCard key={website.id} website={website} view={view} directory onEdit={() => onEdit(website)} onDelete={() => onDelete(website)} />)}
         </div>}
 
-      <div className={styles.help}>
-        <div className={styles.helpItem}><GraduationCap size={20} /><div><h2>Sản phẩm sinh viên</h2><p>Anh Em Motor, My Interview, V-Shield, Victionary English và SHB Agents là 5 sản phẩm được giới thiệu của bộ môn.</p></div></div>
-        <div className={styles.helpItem}><MousePointer2 size={20} /><div><h2>Mở nhanh, không mất trang</h2><p>Chọn một thẻ để mở website trong tab mới. Dùng Ctrl/Cmd + K để tìm kiếm, hoặc đổi sang dạng danh sách để xem gọn hơn.</p></div></div>
-        <div className={styles.helpItem}><LockKeyhole size={20} /><div><h2>Lưu ý khi trải nghiệm</h2><p>Anh Em Motor và SHB Agents cần tài khoản được cấp. Các công cụ bên ngoài có chính sách tài khoản và sử dụng riêng.</p></div></div>
-      </div>
       <div className={styles.about}>
-        <div><h2>Học thật. Làm thật. Kết nối từ những dòng code.</h2><p>Không gian của bộ môn Công nghệ thông tin, FPT Polytechnic: nơi giới thiệu những ứng dụng do sinh viên xây dựng và tập hợp công cụ hỗ trợ học tập, sáng tạo, làm việc. Công cụ bên ngoài không phải sản phẩm của sinh viên.</p></div>
+        <div><h2>Tìm hiểu bộ môn Công nghệ thông tin</h2></div>
         <Link href="/about">Về bộ môn<ArrowRight size={16} /></Link>
       </div>
     </section>

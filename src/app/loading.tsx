@@ -1,46 +1,45 @@
-import { WebsiteSkeleton } from "@/components/websites/website-skeleton";
+import Image from "next/image";
 
 export default function Loading() {
   return (
     <div
       aria-busy="true"
-      aria-label="Đang tải bảng điều khiển FPT Polytechnic"
+      aria-label="Đang tải FPT Digital Showcase"
       className="flex min-h-screen flex-col bg-background text-foreground"
     >
-      <div className="h-16 border-b border-border bg-surface/90">
-        <div className="mx-auto flex h-full max-w-[1600px] items-center gap-3 px-3 sm:px-6">
-          <div className="h-8 w-24 animate-pulse rounded bg-muted sm:h-9 sm:w-[120px]" />
-          <div className="mx-auto h-9 min-w-0 max-w-lg flex-1 animate-pulse rounded-lg bg-muted" />
-          <div className="size-9 animate-pulse rounded-lg bg-muted" />
-          <div className="h-9 w-28 animate-pulse rounded-lg bg-muted" />
+      <header className="border-b border-border bg-background/95">
+        <div className="mx-auto flex h-[72px] max-w-[1440px] items-center justify-between px-5 sm:px-9 lg:h-[88px] xl:px-16">
+          <Image src="/branding/fpt-polytechnic-logo.png" alt="FPT Polytechnic" width={240} height={82} className="h-auto w-28 object-contain sm:w-[124px]" priority />
+          <div className="hidden items-center gap-7 lg:flex" aria-hidden="true">
+            <span className="h-3 w-16 animate-pulse rounded-full bg-muted" />
+            <span className="h-3 w-20 animate-pulse rounded-full bg-muted" />
+            <span className="h-3 w-24 animate-pulse rounded-full bg-muted" />
+          </div>
+          <div className="h-11 w-28 animate-pulse rounded-xl bg-muted" aria-hidden="true" />
         </div>
-      </div>
-      <div className="mx-auto flex w-full max-w-[1600px] flex-1">
-        <aside className="hidden h-[calc(100vh-64px)] w-[232px] space-y-6 border-r border-border bg-surface p-4 lg:block">
-          <div className="space-y-2">
-            <div className="h-3 w-20 animate-pulse rounded bg-muted" />
-            <div className="h-9 animate-pulse rounded-lg bg-muted" />
-          </div>
-          <div className="space-y-2">
-            <div className="h-3 w-20 animate-pulse rounded bg-muted" />
-            {Array.from({ length: 5 }).map((_, index) => (
-              <div key={index} className="h-9 animate-pulse rounded-lg bg-muted" />
-            ))}
-          </div>
-        </aside>
-        <main className="min-w-0 flex-1 px-4 py-7 sm:px-6 lg:px-8 lg:py-8">
-          <div className="mb-7 flex flex-col gap-2">
-            <div className="h-3 w-28 animate-pulse rounded bg-muted" />
-            <div className="h-8 w-44 animate-pulse rounded-lg bg-muted" />
-            <div className="h-4 w-52 animate-pulse rounded bg-muted" />
-          </div>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-            {Array.from({ length: 8 }).map((_, index) => (
-              <WebsiteSkeleton key={index} />
-            ))}
-          </div>
-        </main>
-      </div>
+      </header>
+
+      <main className="mx-auto w-full max-w-[1440px] flex-1 px-5 py-8 sm:px-9 lg:py-12 xl:px-16">
+        <div className="relative isolate overflow-hidden rounded-[24px] border border-[#74459b66] bg-[radial-gradient(circle_at_85%_12%,#ec4b9750,transparent_28%),linear-gradient(135deg,#24143a,#172d48)] px-6 py-10 text-white sm:px-10 sm:py-14 lg:min-h-[360px]">
+          <div aria-hidden="true" className="absolute inset-0 -z-10 opacity-20 [background-image:radial-gradient(#e5d4ff_1px,transparent_1px)] [background-size:22px_22px]" />
+          <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#dfec7b]">FPT Digital Showcase</p>
+          <div className="mt-6 h-10 w-full max-w-[520px] animate-pulse rounded-xl bg-white/20 sm:h-14" aria-hidden="true" />
+          <div className="mt-3 h-10 w-4/5 max-w-[420px] animate-pulse rounded-xl bg-white/15 sm:h-14" aria-hidden="true" />
+          <p className="mt-8 text-sm text-[#d9d0e3]">Đang chuẩn bị nội dung và sản phẩm dành cho bạn…</p>
+          <div className="mt-7 h-12 w-44 animate-pulse rounded-xl bg-[linear-gradient(120deg,#ff7046,#d845a4_55%,#7956de)]" aria-hidden="true" />
+        </div>
+
+        <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3" aria-hidden="true">
+          {Array.from({ length: 3 }).map((_, index) => (
+            <div key={index} className="min-h-48 animate-pulse rounded-2xl border border-border bg-surface p-5">
+              <div className="size-11 rounded-xl bg-muted" />
+              <div className="mt-7 h-5 w-2/3 rounded bg-muted" />
+              <div className="mt-3 h-3 w-full rounded bg-muted" />
+              <div className="mt-2 h-3 w-4/5 rounded bg-muted" />
+            </div>
+          ))}
+        </div>
+      </main>
     </div>
   );
 }

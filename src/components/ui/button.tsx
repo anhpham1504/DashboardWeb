@@ -25,12 +25,12 @@ export function Button({
     <Component
       type={defaultType}
       className={cn(
-        "inline-flex items-center justify-center gap-2 rounded-lg text-sm font-semibold transition-[color,background-color,border-color,box-shadow,transform] duration-150 select-none cursor-pointer disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background active:translate-y-px",
+        "inline-flex items-center justify-center gap-2 rounded-[5px] text-sm font-semibold transition-[color,background-color,border-color,box-shadow,transform] duration-200 select-none cursor-pointer disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background active:translate-y-px",
         // Variants
         variant === "primary" &&
-          "bg-primary text-primary-foreground shadow-xs hover:bg-primary-hover hover:shadow-sm",
+          "bg-primary text-primary-foreground hover:-translate-y-px hover:bg-primary-hover",
         variant === "secondary" &&
-          "border border-border bg-surface text-foreground shadow-xs hover:bg-muted/80 hover:text-foreground",
+          "border border-border bg-surface text-foreground hover:border-foreground/20 hover:bg-muted/80",
         variant === "outline" &&
           "border border-border bg-transparent text-foreground hover:bg-muted/70",
         variant === "ghost" &&

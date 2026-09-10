@@ -1,27 +1,28 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: #f6f8fb;
-  --foreground: #111827;
+  --background: #f8f7f4;
+  --foreground: #242620;
   --card: #ffffff;
-  --card-foreground: #111827;
+  --card-foreground: #242620;
   --popover: #ffffff;
-  --popover-foreground: #111827;
-  --primary: #f37021;
-  --primary-foreground: #24130a;
-  --primary-hover: #d95f17;
-  --primary-strong: #b9470e;
-  --secondary: #eef1f6;
-  --secondary-foreground: #273244;
-  --muted: #eef1f6;
-  --muted-foreground: #64748b;
-  --accent: #fff1e8;
-  --accent-foreground: #9f3c09;
+  --popover-foreground: #242620;
+  --primary: #ed6724;
+  --primary-foreground: #20160f;
+  --primary-hover: #fa874c;
+  --primary-strong: #a9410e;
+  --secondary: #efefe9;
+  --secondary-foreground: #35372f;
+  --muted: #efefe9;
+  --muted-foreground: #6a6c64;
+  --accent: #f7e8df;
+  --accent-foreground: #8f350b;
   --destructive: #dc264b;
   --destructive-foreground: #ffffff;
-  --border: #dfe5ee;
-  --input: #d7deea;
-  --ring: #f37021;
+  --border: #dedfd6;
+  --input: #d7d9cf;
+  --ring: #ed6724;
   --brand-blue: #0066b3;
   --brand-green: #0db14b;
   --brand-green-foreground: #087a34;
@@ -35,30 +36,30 @@
 }
 
 .dark {
-  --background: #090d15;
-  --foreground: #f4f7fb;
-  --card: #111827;
-  --card-foreground: #f4f7fb;
-  --popover: #151d2c;
-  --popover-foreground: #f4f7fb;
-  --primary: #f37021;
-  --primary-foreground: #24130a;
-  --primary-hover: #d95f17;
-  --primary-strong: #ff9a5c;
-  --secondary: #182235;
-  --secondary-foreground: #dbe5f2;
-  --muted: #182235;
-  --muted-foreground: #9aaac0;
-  --accent: #3a2418;
-  --accent-foreground: #ffb17d;
+  --background: #0d0a17;
+  --foreground: #f8f4ff;
+  --card: #171225;
+  --card-foreground: #f8f4ff;
+  --popover: #1b152b;
+  --popover-foreground: #f8f4ff;
+  --primary: #ff7046;
+  --primary-foreground: #1c0d08;
+  --primary-hover: #ff8b68;
+  --primary-strong: #c5a3ff;
+  --secondary: #211a34;
+  --secondary-foreground: #eee7fb;
+  --muted: #221b33;
+  --muted-foreground: #bbb3cd;
+  --accent: #312047;
+  --accent-foreground: #e1caff;
   --destructive: #fb5673;
   --destructive-foreground: #ffffff;
-  --border: #263249;
-  --input: #33425c;
-  --ring: #f37021;
-  --brand-blue: #48a9ed;
-  --brand-green: #2fd06d;
-  --brand-green-foreground: #5ee08b;
+  --border: #3a2f50;
+  --input: #4b3d63;
+  --ring: #a978ff;
+  --brand-blue: #60c8ff;
+  --brand-green: #7eea9a;
+  --brand-green-foreground: #9cf4b2;
 }
 
 @theme inline {
@@ -107,6 +108,17 @@ html {
 
 html.dark {
   color-scheme: dark;
+  background:
+    radial-gradient(circle at 8% 12%, #35134a 0, transparent 25%),
+    radial-gradient(circle at 92% 38%, #122f4e 0, transparent 27%),
+    #0d0a17;
+}
+
+html.dark body {
+  background:
+    radial-gradient(circle at 8% 12%, #35134a55 0, transparent 25%),
+    radial-gradient(circle at 92% 38%, #123d5950 0, transparent 27%),
+    #0d0a17;
 }
 
 body {
