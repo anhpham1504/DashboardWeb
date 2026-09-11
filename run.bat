@@ -32,46 +32,11 @@ if not exist package.json (
   exit /b 1
 )
 
-if not exist .env (
-  if not exist .env.example (
-    echo .env.example was not found.
-    pause
-    exit /b 1
-  )
-  copy /y .env.example .env >nul
-  echo A safe template was copied to .env.
-  echo Configure DATABASE_URL and APP_ORIGINS, then run this file again.
-  pause
-  exit /b 1
-)
-
-findstr /b "DATABASE_URL" .env | findstr /c:"file:" >nul
-if not errorlevel 1 (
-  echo .env still points to SQLite. Configure a MySQL DATABASE_URL before continuing.
-  pause
-  exit /b 1
-)
-
-findstr /c:"change-me" .env >nul
-if not errorlevel 1 (
-  echo Replace the change-me placeholder in .env before continuing.
-  pause
-  exit /b 1
-)
-
 if not exist node_modules (
   echo Installing dependencies...
   call npm install
   if errorlevel 1 goto :failed
 )
-
-echo Generating Prisma Client...
-call npm run db:generate
-if errorlevel 1 goto :failed
-
-echo Applying pending MySQL migrations without resetting data...
-call npm run db:migrate
-if errorlevel 1 goto :failed
 
 echo Opening http://localhost:3000
 start "" "http://localhost:3000"

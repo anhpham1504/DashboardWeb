@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { assetPath } from "@/lib/base-path";
 
 export default function Loading() {
   return (
@@ -9,7 +10,7 @@ export default function Loading() {
     >
       <header className="border-b border-border bg-background/95">
         <div className="mx-auto flex h-[72px] max-w-[1440px] items-center justify-between px-5 sm:px-9 lg:h-[88px] xl:px-16">
-          <Image src="/branding/fpt-polytechnic-logo.png" alt="FPT Polytechnic" width={240} height={82} className="h-auto w-28 object-contain sm:w-[124px]" priority />
+          <Image src={assetPath("/branding/fpt-polytechnic-logo.png")} alt="FPT Polytechnic" width={240} height={82} className="h-auto w-28 object-contain sm:w-[124px]" priority />
           <div className="hidden items-center gap-7 lg:flex" aria-hidden="true">
             <span className="h-3 w-16 animate-pulse rounded-full bg-muted" />
             <span className="h-3 w-20 animate-pulse rounded-full bg-muted" />

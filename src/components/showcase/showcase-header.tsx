@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowUpRight, LogIn, Menu } from "lucide-react";
+import { ArrowUpRight, Menu } from "lucide-react";
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { Brand, ThemeToggle } from "@/components/layout/app-header";
@@ -52,10 +52,6 @@ export function ShowcaseHeader() {
         </nav>
         <div className={styles.headerActions}>
           <ThemeToggle />
-          <Link href="/admin/login" className={styles.loginLink}>
-            <LogIn size={15} />
-            <span>Đăng nhập</span>
-          </Link>
           <Link href="/#projects" className={styles.headerCta}>
             Khám phá <ArrowUpRight size={16} />
           </Link>
@@ -88,10 +84,6 @@ export function ShowcaseHeader() {
                 <ArrowUpRight size={18} />
               </Link>
             ))}
-            <Link href="/admin/login" onClick={() => setOpen(false)}>
-              Đăng nhập quản trị
-              <LogIn size={18} />
-            </Link>
           </nav>
         </SheetContent>
       </Sheet>

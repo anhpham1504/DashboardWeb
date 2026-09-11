@@ -7,17 +7,6 @@ export const metadata: Metadata = {
     "Khám phá và truy cập các nền tảng trong hệ sinh thái FPT Polytechnic.",
 };
 
-export default async function SystemsPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ category?: string | string[] }>;
-}) {
-  const query = await searchParams;
-  const category = Array.isArray(query.category)
-    ? query.category[0]
-    : query.category;
-
-  return (
-    <DashboardClient mode="directory" initialCategory={category || "all"} />
-  );
+export default function SystemsPage() {
+  return <DashboardClient />;
 }

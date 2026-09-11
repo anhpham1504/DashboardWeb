@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import { ShowcasePage } from "@/components/showcase/showcase-page";
-import { selectShowcaseProducts } from "@/lib/showcase";
-import { prisma } from "@/lib/prisma";
-
-export const dynamic = "force-dynamic";
+import { products } from "@/data/products";
 
 export const metadata: Metadata = {
   title: "FPT Digital Showcase | Sản phẩm sinh viên CNTT",
@@ -16,7 +13,6 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function Home() {
-  const websites = await prisma.website.findMany({where:{isVisible:true,isFeatured:true,OR:[{categoryId:null},{category:{isVisible:true}}]},include:{category:{select:{name:true}}},orderBy:[{sortOrder:"asc"},{id:"asc"}]});
-  return <ShowcasePage products={selectShowcaseProducts(websites)} />;
+export default function Home() {
+  return <ShowcasePage products={products} />;
 }

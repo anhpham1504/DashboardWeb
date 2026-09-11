@@ -3,26 +3,27 @@ import { ArrowDown, ArrowRight, ArrowUpRight, Code2, LockKeyhole } from "lucide-
 import { ShowcaseFooter } from "./showcase-footer";
 import { ShowcaseHeader } from "./showcase-header";
 import { ProductPreview } from "./product-preview";
-import type { ShowcaseProduct } from "@/lib/showcase";
+import type { Product } from "@/data/products";
+import { assetPath } from "@/lib/base-path";
 import styles from "./showcase.module.css";
 
-function ProductCard({ product, index }: { product: ShowcaseProduct; index: number }) {
+function ProductCard({ product, index }: { product: Product; index: number }) {
   return (
     <article className={styles.product} data-color={product.color}>
-      <a href={product.url} target="_blank" rel="noopener noreferrer" className={styles.productLink} aria-label={`Trải nghiệm ${product.name} (mở trong tab mới)`}>
+      <a href={product.websiteUrl} target="_blank" rel="noopener noreferrer" className={styles.productLink} aria-label={`Trải nghiệm ${product.name} (mở trong tab mới)`}>
         <div className={styles.stage} data-color={product.color}>
           <div className={styles.stageTop}><span>{product.category}</span></div>
-          <div className={styles.cardPreview}><ProductPreview src={product.image} name={product.name} priority={index < 2} /></div>
+          <div className={styles.cardPreview}><ProductPreview src={assetPath(product.poster)} name={product.name} priority={index < 2} /></div>
         </div>
         <div className={styles.productHeading}><h3>{product.name}</h3><span className={styles.circleArrow}><ArrowUpRight size={23} /></span></div>
-        <p className={styles.productDescription}>{product.summary}</p>
+        <p className={styles.productDescription}>{product.description}</p>
         {product.loginRequired && <div className={styles.productBottom}><span><LockKeyhole size={13} /> Cần tài khoản đăng nhập</span></div>}
       </a>
     </article>
   );
 }
 
-export function ShowcasePage({ products }: { products: ShowcaseProduct[] }) {
+export function ShowcasePage({ products }: { products: Product[] }) {
   const [first, second] = products;
   return (
     <div className={styles.showcase} id="top">
@@ -38,8 +39,8 @@ export function ShowcasePage({ products }: { products: ShowcaseProduct[] }) {
           <div className={styles.heroVisual}>
             <span className={styles.visualOrbit} aria-hidden="true" />
             <span className={styles.visualStar} aria-hidden="true">✳</span>
-            {first && <a className={styles.heroPrimary} href={first.url} target="_blank" rel="noopener noreferrer" aria-label={`Khám phá ${first.name} (mở trong tab mới)`}><ProductPreview src={first.image} name={first.name} priority /></a>}
-            {second && <a className={styles.heroSecondary} href={second.url} target="_blank" rel="noopener noreferrer" aria-label={`Khám phá ${second.name} (mở trong tab mới)`}><ProductPreview src={second.image} name={second.name} priority /></a>}
+            {first && <a className={styles.heroPrimary} href={first.websiteUrl} target="_blank" rel="noopener noreferrer" aria-label={`Khám phá ${first.name} (mở trong tab mới)`}><ProductPreview src={assetPath(first.poster)} name={first.name} priority /></a>}
+            {second && <a className={styles.heroSecondary} href={second.websiteUrl} target="_blank" rel="noopener noreferrer" aria-label={`Khám phá ${second.name} (mở trong tab mới)`}><ProductPreview src={assetPath(second.poster)} name={second.name} priority /></a>}
             {!first && <div className={styles.emptyVisual}><Code2 size={80} /><span>Không gian cho những ý tưởng mới.</span></div>}
           </div>
         </section>

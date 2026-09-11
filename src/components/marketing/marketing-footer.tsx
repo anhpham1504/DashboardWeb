@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { assetPath } from "@/lib/base-path";
 
 export function MarketingFooter() {
   function scrollToTop() {
@@ -27,7 +28,7 @@ export function MarketingFooter() {
                 aria-label="Về trang chủ FPT Digital Showcase"
               >
                 <Image
-                  src="/branding/fpt-polytechnic-logo.png"
+                  src={assetPath("/branding/fpt-polytechnic-logo.png")}
                   alt="FPT Polytechnic"
                   width={240}
                   height={82}

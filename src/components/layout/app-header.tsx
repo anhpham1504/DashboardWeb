@@ -8,10 +8,8 @@ import {
   Compass,
   FolderCog,
   LayoutGrid,
-  LogIn,
   Menu,
   Moon,
-  Plus,
   Sun,
   Zap,
 } from "lucide-react";
@@ -24,6 +22,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
+import { assetPath } from "@/lib/base-path";
 
 export function Brand() {
   return (
@@ -33,7 +32,7 @@ export function Brand() {
       aria-label="Cổng Hệ Thống FPT Polytechnic - Về trang chủ"
     >
       <Image
-        src="/branding/fpt-polytechnic-logo.png"
+        src={assetPath("/branding/fpt-polytechnic-logo.png")}
         alt="FPT Polytechnic"
         width={240}
         height={82}
@@ -71,12 +70,10 @@ export function ThemeToggle() {
 
 export function AppHeader({
   onSearchChange,
-  onAdd,
   onOpenMobileNav,
 }: {
   search?: string;
   onSearchChange?: (value: string) => void;
-  onAdd?: () => void;
   onOpenMobileNav?: () => void;
 }) {
   const pathname = usePathname();
@@ -152,33 +149,11 @@ export function AppHeader({
           <ThemeToggle />
 
           <Link
-            href="/admin/login"
-            className="hidden h-10 items-center gap-2 rounded-[5px] border border-border px-3 text-xs font-semibold text-foreground transition-colors hover:border-primary hover:bg-primary/5 hover:text-primary-strong sm:inline-flex sm:h-12 dark:rounded-xl dark:border-[#493661] dark:hover:border-primary-strong/50"
+            href="/#projects"
+            className="hidden h-12 items-center gap-5 rounded-[5px] bg-foreground px-5 text-xs font-semibold text-background transition-colors hover:bg-primary-strong hover:text-white sm:inline-flex dark:rounded-xl dark:bg-[linear-gradient(120deg,#ff7046,#d845a4_55%,#7956de)] dark:text-white dark:shadow-[0_14px_30px_-18px_#ed5bb4]"
           >
-            <LogIn size={15} />
-            <span>Đăng nhập</span>
+            Khám phá <ArrowUpRight size={16} />
           </Link>
-
-          {onAdd && (
-            <Button
-              id="header-add-button"
-              onClick={onAdd}
-              size="sm"
-              aria-label="Thêm website mới"
-              className="h-10 bg-foreground px-3 text-xs font-semibold text-background hover:bg-primary-strong hover:text-white sm:h-12 sm:px-5 dark:bg-[linear-gradient(120deg,#ff7046,#d845a4_55%,#7956de)] dark:text-white dark:shadow-[0_14px_30px_-18px_#ed5bb4]"
-            >
-              <Plus size={14} className="stroke-[2]" />
-              <span className="hidden sm:inline">Thêm website</span>
-            </Button>
-          )}
-          {!onAdd && (
-            <Link
-              href="/#projects"
-              className="hidden h-12 items-center gap-5 rounded-[5px] bg-foreground px-5 text-xs font-semibold text-background transition-colors hover:bg-primary-strong hover:text-white sm:inline-flex dark:rounded-xl dark:bg-[linear-gradient(120deg,#ff7046,#d845a4_55%,#7956de)] dark:text-white dark:shadow-[0_14px_30px_-18px_#ed5bb4]"
-            >
-              Khám phá <ArrowUpRight size={16} />
-            </Link>
-          )}
           <Button
             variant="ghost"
             size="icon-sm"
@@ -237,28 +212,6 @@ export function AppHeader({
             </div>
 
             <div className="space-y-3 pt-6 border-t border-border/70">
-              <Link
-                href="/admin/login"
-                onClick={() => setMobileDrawerOpen(false)}
-                className="flex min-h-11 w-full items-center justify-center gap-2 rounded-[5px] border border-border px-4 text-sm font-semibold text-foreground transition-colors hover:border-primary hover:bg-primary/5 hover:text-primary-strong"
-              >
-                <LogIn size={16} />
-                <span>Đăng nhập quản trị</span>
-              </Link>
-
-              {onAdd && (
-                <Button
-                  onClick={() => {
-                    setMobileDrawerOpen(false);
-                    onAdd();
-                  }}
-                  className="w-full justify-center"
-                >
-                  <Plus size={16} className="stroke-[2.5]" />
-                  <span>Thêm website mới</span>
-                </Button>
-              )}
-
               <div className="flex items-center justify-between px-3 text-xs text-muted-foreground">
                 <span>Giao diện</span>
                 <ThemeToggle />

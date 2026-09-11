@@ -21,17 +21,12 @@ export default defineConfig({
     timeout: 120_000,
     env: {
       ...process.env,
-      APP_ORIGINS: baseURL,
       NEXT_PUBLIC_SITE_URL: baseURL,
-      STORAGE_DRIVER: "local",
-      TRUST_PROXY: "false",
     },
   },
   projects: [
-    { name: "mobile-320", use: { browserName: "chromium", viewport: { width: 320, height: 800 } } },
-    { name: "mobile-375", use: { browserName: "chromium", viewport: { width: 375, height: 812 } } },
+    { name: "mobile-390", use: { browserName: "chromium", viewport: { width: 390, height: 844 } } },
     { name: "tablet-768", use: { browserName: "chromium", viewport: { width: 768, height: 1024 } } },
-    { name: "desktop-1024", use: { browserName: "chromium", viewport: { width: 1024, height: 768 } } },
-    { name: "desktop-1280", use: { browserName: "chromium", viewport: { width: 1280, height: 720 } } },
+    { name: "desktop-1440", use: { browserName: "chromium", viewport: { width: 1440, height: 900 } } },
   ],
 });
