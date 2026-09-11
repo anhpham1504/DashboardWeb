@@ -2,6 +2,7 @@ import "server-only";
 import { categoryRepository } from "@/repositories/category.repository";
 import { websiteRepository, type WebsiteQuery } from "@/repositories/website.repository";
 import type { WebsiteInput } from "@/schemas/website.schema";
+import { slugify } from "@/lib/slug";
 import { assertSafeUrl, getFaviconUrl } from "@/lib/url";
 
 async function prepare(input: WebsiteInput) {
@@ -16,7 +17,7 @@ async function prepare(input: WebsiteInput) {
 export const websiteService = {
   list: (query: WebsiteQuery) => websiteRepository.list(query),
   get: (id: string) => websiteRepository.findById(id),
-  async create(input: WebsiteInput) { return websiteRepository.create(await prepare(input)); },
+  async create(input: WebsiteInput) { return websiteRepository.create({...await prepare(input),slug:slugify(input.name)}); },
   async update(id: string, input: WebsiteInput) { if (!(await websiteRepository.findById(id))) throw Object.assign(new Error("Website not found."), { code: "NOT_FOUND" }); return websiteRepository.update(id, await prepare(input)); },
   async delete(id: string) { if (!(await websiteRepository.findById(id))) throw Object.assign(new Error("Website not found."), { code: "NOT_FOUND" }); return websiteRepository.delete(id); },
 };

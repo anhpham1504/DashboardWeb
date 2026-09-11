@@ -7,7 +7,9 @@ export function normalizeUrl(value: string) {
 export function assertSafeUrl(value: string) {
   const normalized = normalizeUrl(value);
   const parsed = new URL(normalized);
-  if (parsed.protocol !== "http:" && parsed.protocol !== "https:") throw new Error("Only http and https URLs are allowed.");
+  if ((parsed.protocol !== "http:" && parsed.protocol !== "https:") || parsed.username || parsed.password) {
+    throw new Error("Only http and https URLs without embedded credentials are allowed.");
+  }
   return parsed.toString();
 }
 

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { ShowcasePage } from "@/components/showcase/showcase-page";
 import { selectShowcaseProducts } from "@/lib/showcase";
-import { websiteService } from "@/services/website.service";
+import { prisma } from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
 
@@ -17,6 +17,6 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  const websites = await websiteService.list({});
+  const websites = await prisma.website.findMany({where:{isVisible:true,isFeatured:true,OR:[{categoryId:null},{category:{isVisible:true}}]},include:{category:{select:{name:true}}},orderBy:[{sortOrder:"asc"},{id:"asc"}]});
   return <ShowcasePage products={selectShowcaseProducts(websites)} />;
 }

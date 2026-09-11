@@ -8,6 +8,12 @@ export type CategoryDto = {
 };
 
 export type WebsiteDto = {
+  slug?: string;
+  shortDescription?: string | null;
+  logoUrl?: string | null;
+  posterUrl?: string | null;
+  isFeatured?: boolean;
+  isVisible?: boolean;
   id: string;
   name: string;
   url: string;

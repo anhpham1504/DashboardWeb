@@ -33,12 +33,10 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (the local SQLite configuration is intentionally shared)
+# Environment files and local databases must never be committed.
 .env*
-!.env
 !.env.example
 *.db
-!prisma/dev.db
 *.db-journal
 
 # vercel
@@ -47,3 +45,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+/DashboardWeb/
+/.playwright-cli/
+/backups/
+/public/uploads/
+/artifacts/

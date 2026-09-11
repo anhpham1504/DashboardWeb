@@ -1,8 +1,9 @@
-import { apiError, ok } from "@/lib/api";
-import { categoryInputSchema } from "@/schemas/category.schema";
-import { categoryService } from "@/services/category.service";
-
-function serialize(category: NonNullable<Awaited<ReturnType<typeof categoryService.get>>>) { const { _count, ...rest } = category; return { ...rest, websiteCount: _count.websites }; }
-export async function GET(_request: Request, context: RouteContext<"/api/categories/[id]">) { try { const { id } = await context.params; const category = await categoryService.get(id); if (!category) return Response.json({ success: false, error: { code: "NOT_FOUND", message: "Category not found." } }, { status: 404 }); return ok(serialize(category)); } catch (error) { return apiError(error); } }
-export async function PUT(request: Request, context: RouteContext<"/api/categories/[id]">) { try { const { id } = await context.params; return ok(serialize(await categoryService.update(id, categoryInputSchema.parse(await request.json())))); } catch (error) { return apiError(error); } }
-export async function DELETE(_request: Request, context: RouteContext<"/api/categories/[id]">) { try { const { id } = await context.params; await categoryService.delete(id); return ok({ id }); } catch (error) { return apiError(error); } }
+import {apiError,ok} from "@/lib/api";
+import {prisma} from "@/lib/prisma";
+import {idSchema} from "@/schemas/admin.schema";
+import {legacyMutation} from "@/lib/legacy-admin";
+import {HttpError} from "@/lib/http-error";
+type Context={params:Promise<{id:string}>};
+export async function GET(_r:Request,c:Context){try{const id=idSchema.parse((await c.params).id);const item=await prisma.category.findFirst({where:{id,isVisible:true},include:{_count:{select:{websites:{where:{isVisible:true}}}}}});if(!item)throw new HttpError(404,"NOT_FOUND","Không tìm thấy danh mục.");const {_count,...rest}=item;return ok({...rest,websiteCount:_count.websites});}catch(e){return apiError(e);}}
+export async function PUT(r:Request,c:Context){return legacyMutation(r,"categories",(await c.params).id);}
+export async function DELETE(r:Request,c:Context){return legacyMutation(r,"categories",(await c.params).id);}

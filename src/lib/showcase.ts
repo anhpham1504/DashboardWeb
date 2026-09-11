@@ -10,12 +10,12 @@ export const showcaseCatalog = [
   { hostname: "shbagents.site", slug: "shb-agents", category: "Quản trị & Vận tải", summary: "Cổng quản trị hệ thống vận tải SHB Agents, tập trung các nghiệp vụ vận hành trong một không gian làm việc.", color: "blue", loginRequired: true },
 ] as const;
 
-type WebsiteSource = { id: string; name: string; url: string };
+type WebsiteSource = { id: string; name: string; url: string;slug?:string;shortDescription?:string|null;description?:string|null;posterUrl?:string|null;category?:{name:string}|null;isFeatured?:boolean;isVisible?:boolean };
 
 export function selectShowcaseProducts(websites: WebsiteSource[]) {
-  return showcaseCatalog.flatMap((entry) => {
-    const website = websites.find((item) => getDomain(item.url) === entry.hostname);
-    return website ? [{ ...entry, id: website.id, name: website.name === "Anh Em Motor Admin" ? "Anh Em Motor" : website.name, url: website.url, image: `/showcase/${entry.slug}-poster.png` }] : [];
+  return websites.filter(w=>w.isFeatured&&w.isVisible).map(website=>{
+    const entry=showcaseCatalog.find(e=>e.hostname===getDomain(website.url));
+    return {hostname:getDomain(website.url),slug:website.slug||website.id,category:website.category?.name||"Chưa phân loại",summary:website.shortDescription||website.description||"Chưa có mô tả.",color:entry?.color||"lavender",loginRequired:entry?.loginRequired||false,id:website.id,name:website.name === "Anh Em Motor Admin" ? "Anh Em Motor" : website.name,url:website.url,image:website.posterUrl||"/placeholder.svg"};
   });
 }
 

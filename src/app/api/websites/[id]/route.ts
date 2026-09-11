@@ -1,7 +1,9 @@
-import { apiError, ok } from "@/lib/api";
-import { websiteInputSchema } from "@/schemas/website.schema";
-import { websiteService } from "@/services/website.service";
-
-export async function GET(_request: Request, context: RouteContext<"/api/websites/[id]">) { try { const { id } = await context.params; const item = await websiteService.get(id); if (!item) return Response.json({ success: false, error: { code: "NOT_FOUND", message: "Website not found." } }, { status: 404 }); return ok(item); } catch (error) { return apiError(error); } }
-export async function PUT(request: Request, context: RouteContext<"/api/websites/[id]">) { try { const { id } = await context.params; return ok(await websiteService.update(id, websiteInputSchema.parse(await request.json()))); } catch (error) { return apiError(error); } }
-export async function DELETE(_request: Request, context: RouteContext<"/api/websites/[id]">) { try { const { id } = await context.params; await websiteService.delete(id); return ok({ id }); } catch (error) { return apiError(error); } }
+import {apiError,ok} from "@/lib/api";
+import {prisma} from "@/lib/prisma";
+import {idSchema} from "@/schemas/admin.schema";
+import {legacyMutation} from "@/lib/legacy-admin";
+import {HttpError} from "@/lib/http-error";
+type Context={params:Promise<{id:string}>};
+export async function GET(_r:Request,c:Context){try{const id=idSchema.parse((await c.params).id);const item=await prisma.website.findFirst({where:{id,isVisible:true,OR:[{categoryId:null},{category:{isVisible:true}}]},include:{category:{select:{id:true,name:true}}}});if(!item)throw new HttpError(404,"NOT_FOUND","Không tìm thấy website.");return ok(item);}catch(e){return apiError(e);}}
+export async function PUT(r:Request,c:Context){return legacyMutation(r,"websites",(await c.params).id);}
+export async function DELETE(r:Request,c:Context){return legacyMutation(r,"websites",(await c.params).id);}

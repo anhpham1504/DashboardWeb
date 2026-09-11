@@ -8,6 +8,7 @@ import {
   Compass,
   FolderCog,
   LayoutGrid,
+  LogIn,
   Menu,
   Moon,
   Plus,
@@ -48,7 +49,7 @@ export function ThemeToggle() {
   const mounted = useSyncExternalStore(
     () => () => undefined,
     () => true,
-    () => false
+    () => false,
   );
 
   const isDark = mounted && resolvedTheme === "dark";
@@ -94,7 +95,7 @@ export function AppHeader({
       ) {
         event.preventDefault();
         const searchInput = document.querySelector<HTMLInputElement>(
-          "#all-systems input[type='search'], input[type='search']"
+          "#all-systems input[type='search'], input[type='search']",
         );
         if (searchInput) {
           searchInput.focus();
@@ -126,8 +127,9 @@ export function AppHeader({
           className="hidden items-center gap-7 text-[13px] font-medium text-foreground lg:flex"
         >
           {navLinks.map((link) => {
-            const active =
-              link.href.startsWith("/#") ? false : pathname.startsWith(link.href);
+            const active = link.href.startsWith("/#")
+              ? false
+              : pathname.startsWith(link.href);
 
             return (
               <Link
@@ -149,6 +151,14 @@ export function AppHeader({
         <div className="flex items-center gap-2 sm:gap-4">
           <ThemeToggle />
 
+          <Link
+            href="/admin/login"
+            className="hidden h-10 items-center gap-2 rounded-[5px] border border-border px-3 text-xs font-semibold text-foreground transition-colors hover:border-primary hover:bg-primary/5 hover:text-primary-strong sm:inline-flex sm:h-12 dark:rounded-xl dark:border-[#493661] dark:hover:border-primary-strong/50"
+          >
+            <LogIn size={15} />
+            <span>Đăng nhập</span>
+          </Link>
+
           {onAdd && (
             <Button
               id="header-add-button"
@@ -161,7 +171,14 @@ export function AppHeader({
               <span className="hidden sm:inline">Thêm website</span>
             </Button>
           )}
-          {!onAdd && <Link href="/#projects" className="hidden h-12 items-center gap-5 rounded-[5px] bg-foreground px-5 text-xs font-semibold text-background transition-colors hover:bg-primary-strong hover:text-white sm:inline-flex dark:rounded-xl dark:bg-[linear-gradient(120deg,#ff7046,#d845a4_55%,#7956de)] dark:text-white dark:shadow-[0_14px_30px_-18px_#ed5bb4]">Khám phá <ArrowUpRight size={16} /></Link>}
+          {!onAdd && (
+            <Link
+              href="/#projects"
+              className="hidden h-12 items-center gap-5 rounded-[5px] bg-foreground px-5 text-xs font-semibold text-background transition-colors hover:bg-primary-strong hover:text-white sm:inline-flex dark:rounded-xl dark:bg-[linear-gradient(120deg,#ff7046,#d845a4_55%,#7956de)] dark:text-white dark:shadow-[0_14px_30px_-18px_#ed5bb4]"
+            >
+              Khám phá <ArrowUpRight size={16} />
+            </Link>
+          )}
           <Button
             variant="ghost"
             size="icon-sm"
@@ -196,7 +213,9 @@ export function AppHeader({
                 const active =
                   link.href === "/"
                     ? pathname === "/"
-                    : link.href.startsWith("/#") ? false : pathname.startsWith(link.href);
+                    : link.href.startsWith("/#")
+                      ? false
+                      : pathname.startsWith(link.href);
 
                 return (
                   <Link
@@ -218,6 +237,15 @@ export function AppHeader({
             </div>
 
             <div className="space-y-3 pt-6 border-t border-border/70">
+              <Link
+                href="/admin/login"
+                onClick={() => setMobileDrawerOpen(false)}
+                className="flex min-h-11 w-full items-center justify-center gap-2 rounded-[5px] border border-border px-4 text-sm font-semibold text-foreground transition-colors hover:border-primary hover:bg-primary/5 hover:text-primary-strong"
+              >
+                <LogIn size={16} />
+                <span>Đăng nhập quản trị</span>
+              </Link>
+
               {onAdd && (
                 <Button
                   onClick={() => {

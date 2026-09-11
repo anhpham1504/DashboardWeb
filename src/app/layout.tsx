@@ -41,6 +41,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="vi"
       suppressHydrationWarning
+      data-scroll-behavior="smooth"
       className={`${beVietnamPro.variable} ${manrope.variable} h-full antialiased`}
     >
       <body className="min-h-full"><Providers>{children}</Providers></body>
