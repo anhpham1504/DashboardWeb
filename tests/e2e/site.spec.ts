@@ -9,6 +9,18 @@ const routes = [
   { path: "/categories", heading: "Danh mục sản phẩm" },
 ];
 
+test("first visit defaults to light mode even when the device uses dark mode", async ({
+  page,
+}, testInfo) => {
+  test.skip(
+    testInfo.project.name !== "desktop-1440",
+    "One clean browser context covers the default theme",
+  );
+  await page.emulateMedia({ colorScheme: "dark" });
+  await page.goto("/");
+  await expect(page.locator("html")).toHaveClass(/\blight\b/);
+});
+
 for (const theme of ["light", "dark"] as const) {
   test.describe(`${theme} mode`, () => {
     test.beforeEach(async ({ page }) => {
